@@ -8,6 +8,8 @@ OpenSCAD provides a rudimentary [`text()` built-in function](https://en.wikibook
 
 # Installation
 
+To use `attachable_text3d.scad`, save it from this repository into your OpenSCAD library directory.
+
 ## Required OpenSCAD Version
 
 Using the `openscad_attachable_text3d` library requires OpenSCAD 2021.01 or later. Visit https://openscad.org/ for installation instructions.
