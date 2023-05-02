@@ -97,10 +97,10 @@ use <fontmetrics.scad>
 // Module: attachable_text3d()
 // Usage:
 //   attachable_text3d(text);
-//   attachable_text3d(text, <font="Liberation Sans">, <size=10>, <h=1>, <pad=0>, <anchor=CENTER>, <spin=0>, <orient=UP>);
+//   attachable_text3d(text, <font="Liberation Sans">, <size=10>, <h=1>, <pad=0>, <align=LEFT>, <spacing=1>, <direction="ltr">, <language="en">, <script="latin">, <anchor=CENTER>, <spin=0>, <orient=UP>);
 //
 // Description:
-//   Given a string of text `text`, create a single 
+//   Given a string of text `text`, or a list of strings, create a single 
 //   3D model of that text. The resulting model will have BOSL2 attachable anchor points on it, 
 //   and can be positioned and attached to as needed. 
 //   .
@@ -109,7 +109,8 @@ use <fontmetrics.scad>
 //   specified; examples: `font="Times New Roman"`, `font="Liberation Serif:style=Italic"`, `font="Arial:style=Bold Italic"`. 
 //   When not specified, `font` defaults to whatever `AT3D_DEFAULT_FONT` is set. 
 //   .
-//   All text is aligned to the left. 
+//   All text is by default aligned to the left. Horizontal alignment can be adjusted by setting `align` to one of 
+//   `LEFT`, `CENTER`, or `RIGHT`. 
 //   .
 //   The anchor bounding box constructed for the text is as wide as the longest single 
 //   text element; and, as deep as the sum of text heights of each text element; and, the 
