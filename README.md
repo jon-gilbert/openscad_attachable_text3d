@@ -28,6 +28,8 @@ Fontmetrics - Measuring and wrapping text in OpenSCAD. Authored by Alexander Pru
 
 To use this library and its datafile, download both `fontmetrics.scad` and `fontmetricsdata.scad` from https://www.thingiverse.com/thing:3004457/files into your OpenSCAD library directory.
 
+*Note that there is at least one installation quirk with fontmetrics; see the [quirks wiki](https://github.com/jon-gilbert/openscad_attachable_text3d/wiki/Installation-Quirks:-fontmetrics) for details.*
+
 # Quick Start
 
 ### A basic attachable block of text:
