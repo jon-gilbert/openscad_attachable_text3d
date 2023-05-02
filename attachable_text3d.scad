@@ -40,7 +40,6 @@
 //   shapes, or existing attachment-aware models.
 //
 // Figure(3D,Medium,NoAxes,NoScales): anchorable, attachable text:
-//   include <BOSL2/std.scad>
 //   include <attachable_text3d.scad>
 //   attachable_text3d("text") show_anchors();
 //
@@ -54,7 +53,6 @@
 //         cube([20, 20, 5]);
 //   ```
 // Figure(3D,Medium,NoAxes,NoScales):
-//   include <BOSL2/std.scad>
 //   include <attachable_text3d.scad>
 //   attachable_text3d("x")
 //      attach(BOTTOM, TOP)
@@ -68,14 +66,12 @@
 //           attachable_text3d("No Smoking");
 //   ```
 // Figure(3D,Medium,NoAxes,NoScales):
-//   include <BOSL2/std.scad>
 //   include <attachable_text3d.scad>
 //   attachable_text3d("z", font="Webdings")
 //       attach(RIGHT, LEFT, overlap=-2)
 //           attachable_text3d("No Smoking");
 //
 // Includes:
-//   include <BOSL2/std.scad>
 //   include <attachable_text3d.scad>
 // Continues:
 //    You must additionally have the `fontmetrics.scad` and `fontmetricsdata.scad`
@@ -84,6 +80,10 @@
 //    These libraries are available under a CC-BY-4.0 license. 
 //
 
+/// This libfile's inline docs may be generated via:
+///   openscad-docsgen -D output -S -f -m attachable_text3d.scad
+
+include <BOSL2/std.scad>
 /// We include fontmetricsdata.scad as well as use-ing 
 /// fontmetrics.scad to get direct access to its 
 /// FONTS list; we use that within _fontmetricsdata_list_fonts().
