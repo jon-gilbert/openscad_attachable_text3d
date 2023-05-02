@@ -32,12 +32,14 @@ To use this library and its datafile, download both `fontmetrics.scad` and `font
 ```
 attachable_text3d("Hello");
 ```
+![hello](https://user-images.githubusercontent.com/19860563/235554298-ea54d6dd-fb7f-4ab8-af59-e5d63fe57550.png)
 
 ### That same attachable block of text, with its anchors exposed:
 ```
 attachable_text3d("Hello") 
     show_anchors();
 ```
+![hello-anchored](https://user-images.githubusercontent.com/19860563/235554305-f08ea39a-265d-45cb-8ffc-3930eb450c4b.png)
 
 ### Attached blocks of text:
 ```
@@ -47,6 +49,7 @@ attachable_text3d("Block 1")
             attach(RIGHT, LEFT)
                 attachable_text3d("Block 2");
 ```
+![block1-and-of-course-block2](https://user-images.githubusercontent.com/19860563/235554318-daee5c81-0e5c-4ac0-b7ad-7a00d4e0a1a0.png)
 
 Additional examples are available in [this repository's wiki](https://github.com/jon-gilbert/openscad_attachable_text3d/wiki).
 
