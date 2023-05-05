@@ -190,19 +190,19 @@ module attachable_text3d(texts, font=AT3D_DEFAULT_FONT, size=AT3D_DEFAULT_SIZE, 
     attachable(anchor, spin, orient, size=boundary, anchors=anchors) {
         union() {
             translate([
-                (in_list(align, [LEFT, CENTER]))
-                    ? -1 * (boundary.x * ((align == LEFT) ? 0.5 : 0))
-                    :  1 * (boundary.x * 0.5),
-                0 - (firstline_boundary.y / 2) + (boundary.y / 2),
-                0])
-                    for (i = idx(texts_)) 
-                        let(
-                            prevbounds = (i > 0) 
-                                ? attachable_text3d_boundary(select(texts_, 0, i - 1), font=font, size=size, h=h, line_spacing=line_spacing, pad=pad, spacing=spacing) 
-                                : [0, 0, 0]
-                            )
-                        fwd(prevbounds.y)
-                            _attachable_text3d_one_line(texts_[i], font=font, size=size, h=h, pad=pad, spacing=spacing, direction=direction, language=language, script=script, anchor=align);
+                    (in_list(align, [LEFT, CENTER]))
+                        ? -1 * (boundary.x * ((align == LEFT) ? 0.5 : 0))
+                        :  1 * (boundary.x * 0.5),
+                    0 - (firstline_boundary.y / 2) + (boundary.y / 2),
+                    0])
+                for (i = idx(texts_)) 
+                    let(
+                        prevbounds = (i > 0) 
+                            ? attachable_text3d_boundary(select(texts_, 0, i - 1), font=font, size=size, h=h, line_spacing=line_spacing, pad=pad, spacing=spacing) 
+                            : [0, 0, 0]
+                        )
+                    fwd(prevbounds.y)
+                        _attachable_text3d_one_line(texts_[i], font=font, size=size, h=h, pad=pad, spacing=spacing, direction=direction, language=language, script=script, anchor=align);
 
             if (debug_bounding)
                 translate([-1 * (boundary.x/2), -1 * (boundary.y/2), -1 * (boundary.z/2)])
@@ -212,6 +212,123 @@ module attachable_text3d(texts, font=AT3D_DEFAULT_FONT, size=AT3D_DEFAULT_SIZE, 
     }
 }
 
+
+// Module: attachable_text3d_multisize()
+// Usage:
+//   attachable_text3d_multisize(text_and_sizes);
+//   attachable_text3d_multisize(text_and_sizes, <font="Liberation Sans">, <h=1>, <pad=0>, <align=LEFT>, <spacing=1>, <direction="ltr">, <language="en">, <script="latin">, <anchor=CENTER>, <spin=0>, <orient=UP>);
+//
+// Description:
+//   Given a list of text and sizing pairings `text_and_sizes`, create a single 
+//   3D model of that text. Each `[text, size]` pairing within `text_and_sizes` will be 
+//   shown in the specified `size`, aligned as specified by `align`. `text` may be a list with 
+//   multiple elements, all of which will have that pairing's `size` applied. 
+//   The resulting model will have BOSL2 attachable anchor points on it, 
+//   and can be positioned and attached to as needed. 
+//   .
+//   `font` must be a font-name and style listed in `AT3D_ATTACHABLE_FONTS`,  because those are the 
+//   fonts for which accurate measurements are available. Font families, or families and styles, may be 
+//   specified; examples: `font="Times New Roman"`, `font="Liberation Serif:style=Italic"`, `font="Arial:style=Bold Italic"`. 
+//   When not specified, `font` defaults to whatever `AT3D_DEFAULT_FONT` is set. 
+//   .
+//   All text is by default aligned to the left. Horizontal alignment can be adjusted by setting `align` to one of 
+//   `LEFT`, `CENTER`, or `RIGHT`. 
+//   .
+//   The anchor bounding box constructed for the text is as wide as the longest single 
+//   text element; and, as deep as the sum of text heights of each text element; and, the 
+//   height of `h` used. The bounding box for all strings represented within `text`
+//   can be exposed by setting `debug_bounding` to `true`.
+//
+// Arguments:
+//   text_and_sizes = A list of one or more `[text, size]` pairings to produce a model of. No default.
+//   ---
+//   font = The name and style of the font to use. Default: `Liberation Sans`
+//   h = The height (thickness) of the text produced. Default: `1`
+//   line_spacing = Sets the spacing between individual lines of text; this is similar (but not identical) to leading. Default: `0.5`
+//   pad = Padding applied to the boundary anchor box surrounding the generated text. Default: `0`
+//   align = Horizontally align text to one of `LEFT`, `CENTER`, or `RIGHT`. Default: `LEFT`
+//   spacing = The relative spacing multiplier between characters. Default: `1`
+//   direction = The text direction. `ltr` for left to right. `rtl` for right to left. `ttb` for top to bottom. `btt` for bottom to top. Default: `ltr`
+//   language = The language the text is in. Default: `en`
+//   script = The script the text is in. Default: `latin`
+//   debug_bounding = If set to `true`, the text model's bounding box will be inscribed around the produced text. Default: `false`
+//   anchor = Translate so anchor point is at origin `[0,0,0]`. Default: `CENTER`
+//   spin = Rotate this many degrees around the Z axis after anchoring. Default: `0`
+//   orient = Vector direction to which the model should point after spin. Default: `UP`
+//
+// Named Anchors: In addition to the cardinal anchor points provided by BOSL2, `attachable_text3d_multisize()` vends the following six additional named anchors:
+//   text-left-back = The back-left most corner, oriented backwards
+//   text-left-fwd = The forward-left most corner, oriented forwards
+//   text-center-back = The back-center face, oriented backwards
+//   text-center-fwd = The forward-center face, oriented forwards
+//   text-right-back = The top-right most corner, oriented backwards
+//   text-right-fwd = The forward-right most corner, oriented forwards
+// Figure: Available named anchors:
+//   v = [[["Lorem"], 10]];
+//   expose_anchors() attachable_text3d_multisize(v) show_anchors(std=false);
+//
+// Example: A single line of attachable text:
+//   attachable_text3d_multisize([["Lorem Ipsum"], 10]);
+//
+// Example: Multiple lines of text at various sizes:
+//   v = [
+//      [["Lorem ipsum dolor sit amet,", 
+//        "consectetur adipiscing elit,", 
+//        "sed do eiusmod tempor incididunt ut", 
+//        "labore et dolore magna aliqua."], 10],
+//      [["Ut enim ad minim veniam,", 
+//        "quis nostrud exercitation ullamco laboris", 
+//        "nisi ut aliquip ex ea commodo consequat."], 5],
+//     ];
+//   attachable_text3d_multisize(v);
+//
+// Todo:
+//   assert the geometry of texts_and_sizes; and make sure all [0] are texts or lists and all [1] are numbers
+//
+module attachable_text3d_multisize(texts_and_sizes, font=AT3D_DEFAULT_FONT, h=AT3D_DEFAULT_HEIGHT, line_spacing=AT3D_DEFAULT_LINE_SPACING, pad=AT3D_DEFAULT_PAD, align=LEFT, spacing=AT3D_DEFAULT_SPACING, direction=AT3D_DEFAULT_DIRECTION, language=AT3D_DEFAULT_LANGUAGE, script=AT3D_DEFAULT_SCRIPT, debug_bounding=false, anchor=AT3D_DEFAULT_ANCHOR, spin=AT3D_DEFAULT_SPIN, orient=AT3D_DEFAULT_ORIENT) {    
+    // TRodo - need a list geometry checker, and need to make sure all [0] are text or lists and all [1] are sizes
+    assert(in_list(font, AT3D_ATTACHABLE_FONTS));
+    assert(h > 0);
+    assert(line_spacing >= 0);
+    assert(pad >= 0);
+    assert(in_list(align, [LEFT, CENTER, RIGHT]));
+ 
+    b = attachable_text3d_multisize_boundary(texts_and_sizes, font=font, h=h, line_spacing=line_spacing, pad=pad, spacing=spacing);
+    boundary = b[0];
+    section_boundaries = b[1];
+
+    first_line = (is_list(texts_and_sizes[0][0])) ? texts_and_sizes[0][0][0] : texts_and_sizes[0][0];
+    firstline_boundary = attachable_text3d_boundary(first_line, font=font, size=texts_and_sizes[0][1], h=h, pad=pad, spacing=spacing);
+
+    anchors = attachable_text3d_anchors_from_boundary(boundary);
+
+    attachable(anchor, spin, orient, size=boundary, anchors=anchors) {
+        union() {
+            translate([
+                    (in_list(align, [LEFT, CENTER]))
+                        ? -1 * (boundary.x * ((align == LEFT) ? 0.5 : 0))
+                        :  1 * (boundary.x * 0.5),
+                    0 - (firstline_boundary.y / 2) + (boundary.y / 2),
+                    0])
+                for (i=idx(texts_and_sizes))
+                    let(
+                        move_fwd = (i > 0)
+                            ? sum([ sum([for (j=select(section_boundaries, 0, i-1)) j.y ]), line_spacing * i ])
+                            : 0
+                        )
+                    fwd(move_fwd)
+                        attachable_text3d(texts_and_sizes[i][0], size=texts_and_sizes[i][1], 
+                                font=font, h=h, line_spacing=line_spacing, pad=pad, 
+                                align=align, spacing=spacing, direction=direction, language=language, 
+                                script=script, anchor=align);
+
+            if (debug_bounding)
+                translate([-1 * (boundary.x/2), -1 * (boundary.y/2), -1 * (boundary.z/2)])
+                    _bounds_debugging(boundary);
+        }
+        children();
+    }
+}
 
 /// Module: _attachable_text3d_one_line()
 /// Usage:
@@ -262,7 +379,6 @@ module _bounds_debugging(bounds, color="magenta", alpha=0.5, anchor=AT3D_DEFAULT
 // Section: Boundary Functions
 //
 //
-//
 // Function: attachable_text3d_boundary()
 // Usage:
 //   boundary = attachable_text3d_boundary(text);
@@ -303,6 +419,62 @@ function attachable_text3d_boundary(texts, font=AT3D_DEFAULT_FONT, size=AT3D_DEF
         line_spacings = line_spacing * (len(texts_) - 1),
         msm_boundaries = _bounds_max_sum_max(boundaries)
     ) [msm_boundaries.x, sum([msm_boundaries.y, line_spacings]), msm_boundaries.z];
+
+
+// Function: attachable_text3d_multisize_boundary()
+// Usage:
+//   boundary_and_bounds = attachable_text3d_multisize_boundary(text_and_sizes);
+//   boundary_and_bounds = attachable_text3d_multisize_boundary(text_and_sizes, <font="Liberation Sans">, <h=1>, <line_spacing=0.5>, <pad=0>);
+//
+// Description:
+//   Given a list of text and sizing pairings `text_and_sizes`, calculate the dimensional sizing of those pairs and return it 
+//   as a list containing both sizing `boundary` (a `[x-width, y-depth, z-height]` dimension list), and the individual boundary 
+//   elements of each entry found in `text_and_sizes`. 
+//   Each `[text, size]` pairing within `text_and_sizes` will have its boundary calculated similar to `attachable_text3d_boundary()`, 
+//   and the returned `boundary` will have them incorporated with any `line_spacing` inbetween each pairing as needed. 
+//   `attachable_text3d_multisize_boundary()` optionally takes arguments for height, line spacing, and padding to inform the dimension returned. 
+//   .
+//   `font` must be a font-name and style listed in `AT3D_ATTACHABLE_FONTS`.
+// 
+// Arguments:
+//   text_and_sizes = A list of one or more `[text, size]` pairings to produce a model of. No default.
+//   ---
+//   font = The name and style of the font to use. Default: `Liberation Sans`
+//   h = The height (thickness) of the text produced. Default: `1`
+//   line_spacing = Sets the spacing between individual lines of text, and between pairings; this is similar (but not identical) to leading. Default: `0.5`
+//   pad = Padding applied to the boundary anchor box surrounding the generated text. Default: `0`
+//   spacing = The relative spacing multiplier between characters. Default: `1`
+//
+// Example: a multie
+//   v = [
+//     [["Lorem Ipsum"], 10],
+//     [["dolor sit amet", "consectetur adipiscing elit"], 5]
+//     ];
+//   b = attachable_text3d_multisize(v);
+//   // b == [
+//   //   [78.494, 20.6475, 1],     // full boundary
+//   //   [
+//   //      [78.494, 9.56907, 1],  // first block
+//   //      [77.6468, 10.5784, 1]  // second block
+//   //     ]
+//   //   ]
+//
+// Todo:
+//   assert the geometry of texts_and_sizes; and make sure all [0] are texts or lists and all [1] are numbers
+//
+function attachable_text3d_multisize_boundary(texts_and_sizes, font=AT3D_DEFAULT_FONT, h=AT3D_DEFAULT_HEIGHT, line_spacing=AT3D_DEFAULT_LINE_SPACING, pad=AT3D_DEFAULT_PAD, spacing=AT3D_DEFAULT_SPACING) = 
+    // TRodo - need a list geometry checker, and need to make sure all [0] are text or lists and all [1] are sizes
+    assert(in_list(font, AT3D_ATTACHABLE_FONTS))
+    assert(h > 0)
+    assert(line_spacing >= 0)
+    assert(pad >= 0)
+    let(
+        boundaries = [for (i=idx(texts_and_sizes)) 
+            attachable_text3d_boundary(texts_and_sizes[i][0], size=texts_and_sizes[i][1], 
+                    font=font, h=h, line_spacing=line_spacing, pad=pad, spacing=spacing) ],
+        line_spacings = line_spacing * (len(texts_and_sizes) - 1),
+        msm_boundaries = _bounds_max_sum_max(boundaries)
+    ) [ [msm_boundaries.x, sum([msm_boundaries.y, line_spacings]), msm_boundaries.z], boundaries];
 
 
 /// Function: attachable_text3d_singleline_boundary()
