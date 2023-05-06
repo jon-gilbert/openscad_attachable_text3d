@@ -304,6 +304,7 @@ module attachable_text3d_multisize(texts_and_sizes, font=AT3D_DEFAULT_FONT, h=AT
 
     attachable(anchor, spin, orient, size=boundary, anchors=anchors) {
         union() {
+            back(firstline_boundary.y/2)
             translate([
                     (in_list(align, [LEFT, CENTER]))
                         ? -1 * (boundary.x * ((align == LEFT) ? 0.5 : 0))
@@ -320,7 +321,7 @@ module attachable_text3d_multisize(texts_and_sizes, font=AT3D_DEFAULT_FONT, h=AT
                         attachable_text3d(texts_and_sizes[i][0], size=texts_and_sizes[i][1], 
                                 font=font, h=h, line_spacing=line_spacing, pad=pad, 
                                 align=align, spacing=spacing, direction=direction, language=language, 
-                                script=script, anchor=align);
+                                script=script, anchor="text-left-back");
 
             if (debug_bounding)
                 translate([-1 * (boundary.x/2), -1 * (boundary.y/2), -1 * (boundary.z/2)])
