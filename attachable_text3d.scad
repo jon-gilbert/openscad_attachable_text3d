@@ -486,7 +486,9 @@ function attachable_text3d_multisize_boundary(texts_and_sizes, font=AT3D_DEFAULT
 ///   the boundary for that text. Includes padding, 
 ///   font dimensions at the given size; does NOT include line_spacing.
 ///   Assumes oriented UP, 0 spin, center anchor. 
-/// Todo: consider: should pad really not permit negative values?
+/// Todo: 
+///   consider: should pad really not permit negative values?
+///   consdier: really, really should reconsider handling `undef` for `text`. Maybe something like, "treat_undef_as_empty" or "ignore_undef"? and frankly, what happens when `text` is an int? or a list? cmon, folks.
 ///
 function attachable_text3d_singleline_boundary(text, font=AT3D_DEFAULT_FONT, size=AT3D_DEFAULT_SIZE, h=AT3D_DEFAULT_HEIGHT, pad=AT3D_DEFAULT_PAD, spacing=AT3D_DEFAULT_SPACING) = 
     assert(is_string(text))
