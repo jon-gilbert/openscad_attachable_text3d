@@ -54,5 +54,5 @@ jobs:
         with:
           path: "openscad_attachable_text3d.wiki"
         env:
-          GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
 
