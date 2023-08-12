@@ -27,7 +27,7 @@ jobs:
         run: sudo apt update
 
       - name: Install Required Libraries
-        run: sudo apt-get install python3-pip python3-dev python3-setuptools python3-pil gifsicle libfuse2
+        run: sudo apt-get install python3-pip python3-dev python3-setuptools python3-pil gifsicle libfuse2 git
 
       - name: Install openscad-docsgen
         run: sudo pip3 install openscad-docsgen
@@ -38,6 +38,9 @@ jobs:
           wget https://files.openscad.org/OpenSCAD-2021.01-x86_64.AppImage
           sudo mv OpenSCAD-2021.01*-x86_64.AppImage /usr/local/bin/openscad
           sudo chmod +x /usr/local/bin/openscad
+
+      - name: Install BOSL2
+        run: git clone https://github.com/BelfrySCAD/BOSL2.git
 
       - name: Generate Wiki docs
         uses: GabrielBB/xvfb-action@v1.6
