@@ -32,12 +32,12 @@ attachable_text3d("Hello")
 
 # Installation
 
-Details on installation of this library [can be found here](wiki/Installation), including notes on dependencies.
+Details on installation of this library [can be found here](https://github.com/jon-gilbert/openscad_attachable_text3d/wiki/Installation), including notes on dependencies.
 
 # Use & Examples
 
-[This project's wiki](wiki/Home) has examples and details on implementation, 
-as well as [inline reference SCAD documentation](wiki/attachable_text3d.scad).
+[This project's wiki](https://github.com/jon-gilbert/openscad_attachable_text3d/wiki) has examples and details on implementation, 
+as well as [inline reference SCAD documentation](https://github.com/jon-gilbert/openscad_attachable_text3d/wiki/attachable_text3d.scad).
 
 # Author & License
 
