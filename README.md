@@ -34,6 +34,10 @@ attachable_text3d("Hello")
 
 Details on installation of this library [can be found here](https://github.com/jon-gilbert/openscad_attachable_text3d/wiki/Installation), including notes on dependencies.
 
+## fontmetrics
+
+The `fontmetrics` and `fontmetricsdata` SCAD libraries are by [Alexander Pruss](https://www.thingiverse.com/arpruss), licensed under [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/). They're redistributed within `attachable_text3d`, here.
+
 # Use & Examples
 
 [This project's wiki](https://github.com/jon-gilbert/openscad_attachable_text3d/wiki) has examples and details on implementation, 
