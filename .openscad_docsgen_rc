@@ -1,0 +1,14 @@
+DocsDirectory: openscad_attachable_text3d.wiki 
+TargetProfile: githubwiki
+ProjectName: OpenSCAD Attachable Text3d
+GenerateDocs: Files, TOC, Index
+IgnoreFiles:
+  tmp_*.scad
+DefineHeader(BulletList): Todo
+DefineHeader(BulletList): Listing
+DefineHeader(BulletList): Links
+DefineHeader(Table;Headers=^Position|^Positional List Item|What It Represents): DefArgs
+DefineHeader(Table;Headers=^Position|^Name|What It Represents): Return Listing
+DefineHeader(Table;Headers=^Attribute Name|^Datatype|What It Represents): Attributes
+DefineHeader(Table;Headers=^Function|What It Returns): Attribute Function Listing
+DefineHeader(Table;Headers=^Anchor Name|Position Description): Named Anchors
