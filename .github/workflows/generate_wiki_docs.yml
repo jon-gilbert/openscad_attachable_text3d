@@ -23,11 +23,6 @@ jobs:
           repository: jon-gilbert/openscad_attachable_text3d.wiki
           path: openscad_attachable_text3d.wiki
 
-      - name: Clone BOSL2
-        uses: actions/checkout@v3
-        with:
-          repository: BelfrySCAD/BOSL2
-
       - name: APT update
         run: sudo apt update
 
@@ -43,6 +38,9 @@ jobs:
           wget https://files.openscad.org/OpenSCAD-2021.01-x86_64.AppImage
           sudo mv OpenSCAD-2021.01*-x86_64.AppImage /usr/local/bin/openscad
           sudo chmod +x /usr/local/bin/openscad
+
+      - name: Install BOSL2
+        run: git clone https://github.com/BelfrySCAD/BOSL2.git
 
       - name: Generate Wiki docs
         uses: GabrielBB/xvfb-action@v1.6
