@@ -348,7 +348,7 @@ function attachable_text3d_boundary(texts, font=AT3D_DEFAULT_FONT, size=AT3D_DEF
 //   pad = Padding applied to the boundary anchor box surrounding the generated text. Default: `0`
 //   spacing = The relative spacing multiplier between characters. Default: `1`
 //
-// Example: a multie
+// Example: a multisize boundary call. Note that each individual block has its own dimension available:
 //   v = [
 //     [["Lorem Ipsum"], 10],
 //     [["dolor sit amet", "consectetur adipiscing elit"], 5]
