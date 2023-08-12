@@ -4,6 +4,8 @@ ProjectName: OpenSCAD Attachable Text3d
 GenerateDocs: Files, TOC, Index
 IgnoreFiles:
   tmp_*.scad
+  fontmetrics.scad
+  fontmetricsdata.scad
 DefineHeader(BulletList): Todo
 DefineHeader(BulletList): Listing
 DefineHeader(BulletList): Links
