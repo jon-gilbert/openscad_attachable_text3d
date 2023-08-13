@@ -54,6 +54,7 @@ jobs:
       - name: Upload docs to wiki
         uses: newrelic/wiki-sync-action@main
         with:
+          branch: main
           source: openscad_attachable_text3d.wiki
           destination: wiki
           token: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
