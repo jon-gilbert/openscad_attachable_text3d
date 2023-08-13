@@ -52,9 +52,10 @@ jobs:
           run: openscad-docsgen -f
 
       - name: Upload docs to wiki
-        uses: spenserblack/actions-wiki@0.3.0
+        uses: spenserblack/actions-wiki@v0.3.0
         with:
           path: "openscad_attachable_text3d.wiki"
           repository: jon-gilbert/openscad_attachable_text3d.wiki
           token: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
+
 
