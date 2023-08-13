@@ -52,11 +52,10 @@ jobs:
           run: openscad-docsgen -f
 
       - name: manual git upload to wiki
-        uses: rlespinasse/git-commit-data-action@v1.5.0
         run: |
           cd openscad_attachable_text3d.wiki
-          git config user.name ${{ env.GIT_COMMIT_AUTHOR }}
-          git config user.email ${{ env.GIT_COMMIT_AUTHOR_EMAIL }}
-          git add -A && git commit -m "update: ${{ env.GIT_COMMIT_SHORT_SHA }}"
+          git config user.name `git log -1 --pretty=format:"%an" "HEAD"`
+          git config user.email `git log -1 --pretty=format:"%ae" "HEAD"`
+          git add -A && git commit -m "Wiki doc update"
 
 
