@@ -30,7 +30,7 @@ use <fontmetrics.scad>
 //   attachable_text3d(text, <font="Liberation Sans">, <size=10>, <h=1>, <pad=0>, <align=LEFT>, <spacing=1>, <direction="ltr">, <language="en">, <script="latin">, <anchor=CENTER>, <spin=0>, <orient=UP>);
 //
 // Description:
-//   Given a string of text `text`, or a list of strings, create a single 3D model of that text. The resulting model will have BOSL2 attachable anchor points on it, and can be positioned and attached to as needed. 
+//   Given a string of text `text`, or a list of strings (also `text`), create a single 3D model of that text. The resulting model will have BOSL2 attachable anchor points on it, and can be positioned and attached to as needed. 
 //   .
 //   `font` must be a font-name and style listed in `AT3D_ATTACHABLE_FONTS`,  because those are the fonts for which accurate measurements are available. Font families, or families and styles, may be specified; examples: `font="Times New Roman"`, `font="Liberation Serif:style=Italic"`, `font="Arial:style=Bold Italic"`. When not specified, `font` defaults to whatever `AT3D_DEFAULT_FONT` is set. 
 //   .
