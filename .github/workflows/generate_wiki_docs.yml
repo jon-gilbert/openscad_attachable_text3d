@@ -67,6 +67,6 @@ jobs:
             cd openscad_attachable_text3d.wiki
             git config user.name ${{ env.GIT_COMMIT_AUTHOR }}
             git config user.email ${{ env.GIT_COMMIT_AUTHOR_EMAIL }}
-            git add -A && git commit -m "update: ${{ env.GIT_COMMIT_SHORT_SHA }}" && git push
+            git add -A && git commit -m "update: ${{ env.GIT_COMMIT_SHORT_SHA }}"
 
 
