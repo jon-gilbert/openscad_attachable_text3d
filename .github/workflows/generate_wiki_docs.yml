@@ -56,6 +56,8 @@ jobs:
           cd openscad_attachable_text3d.wiki
           git config user.name `git log -1 --pretty=format:"%an" "HEAD"`
           git config user.email `git log -1 --pretty=format:"%ae" "HEAD"`
-          git add -A && git commit -m "Wiki doc update"
+          git add -A 
+          git commit -m "Wiki doc update"
+          git push
 
 
