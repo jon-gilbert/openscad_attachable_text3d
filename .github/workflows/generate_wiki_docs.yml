@@ -55,7 +55,7 @@ jobs:
         uses: spenserblack/actions-wiki@v0.3.0
         with:
           path: "openscad_attachable_text3d.wiki"
-          repository: jon-gilbert/openscad_attachable_text3d.wiki
+          repository: jon-gilbert/openscad_attachable_text3d
           token: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
 
 
