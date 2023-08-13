@@ -51,14 +51,22 @@ jobs:
         with:
           run: openscad-docsgen -f
 
-      - name: Upload docs to wiki
-        uses: newrelic/wiki-sync-action@main
-        with:
-          branch: main
-          source: openscad_attachable_text3d.wiki
-          destination: wiki
-          token: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
-          gitAuthorName: ${{ env.GIT_AUTHOR_NAME }}
-          gitAuthorEmail: ${{ env.GIT_AUTHOR_EMAIL }}
+#      - name: Upload docs to wiki
+#        uses: newrelic/wiki-sync-action@main
+#        with:
+#          branch: main
+#          source: openscad_attachable_text3d.wiki
+#          destination: wiki
+#          token: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
+#          gitAuthorName: ${{ env.GIT_AUTHOR_NAME }}
+#          gitAuthorEmail: ${{ env.GIT_AUTHOR_EMAIL }}
+
+        - name: manual git upload to wiki
+          uses: rlespinasse/git-commit-data-action@v1.5.0
+          run: |
+            cd openscad_attachable_text3d.wiki
+            git config user.name ${{ env.GIT_COMMIT_AUTHOR }}
+            git config user.email ${{ env.GIT_COMMIT_AUTHOR_EMAIL }}
+            git add -A && git commit -m "update: ${{ env.GIT_COMMIT_SHORT_SHA }}" && git push
 
 
