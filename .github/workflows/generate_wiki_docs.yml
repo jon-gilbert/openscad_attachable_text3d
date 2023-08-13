@@ -1,4 +1,4 @@
-name: Regen Docs
+name: Generate Wiki Docs
 
 on:
   push:
@@ -6,7 +6,6 @@ on:
   pull_request:
     branches: [ "main" ]
 
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
@@ -23,11 +22,17 @@ jobs:
           repository: jon-gilbert/openscad_attachable_text3d.wiki
           path: openscad_attachable_text3d.wiki
 
+      - name: Clone BOSL2
+        uses: actions/checkout@v3
+        with:
+            repository: BelfrySCAD/BOSL2
+            path: ${{ github.workspace }}/BOSL2
+
       - name: APT update
         run: sudo apt update
 
       - name: Install Required Libraries
-        run: sudo apt-get install python3-pip python3-dev python3-setuptools python3-pil gifsicle libfuse2 git
+        run: sudo apt-get install python3-pip python3-dev python3-setuptools python3-pil gifsicle libfuse2
 
       - name: Install openscad-docsgen
         run: sudo pip3 install openscad-docsgen
@@ -38,9 +43,6 @@ jobs:
           wget https://files.openscad.org/OpenSCAD-2021.01-x86_64.AppImage
           sudo mv OpenSCAD-2021.01*-x86_64.AppImage /usr/local/bin/openscad
           sudo chmod +x /usr/local/bin/openscad
-
-      - name: Install BOSL2
-        run: git clone https://github.com/BelfrySCAD/BOSL2.git
 
       - name: Generate Wiki docs
         uses: GabrielBB/xvfb-action@v1.6
