@@ -2,7 +2,7 @@
 //   OpenSCAD module for creating blocks of 3D text that are attachable with BOSL2. 
 //
 // Includes:
-//   include <attachable_text3d.scad>
+//   include <openscad_attachable_text3d/attachable_text3d.scad>
 // Continues:
 //    You must additionally have the `fontmetrics.scad` and `fontmetricsdata.scad`
 //    libraries by Alexander Pruss installed. Source these from
