@@ -119,11 +119,26 @@ module attachable_text3d(texts, font=AT3D_DEFAULT_FONT, size=AT3D_DEFAULT_SIZE, 
                 for (i = idx(texts_)) 
                     let(
                         prevbounds = (i > 0) 
-                            ? attachable_text3d_boundary(select(texts_, 0, i - 1), font=font, size=size, h=h, line_spacing=line_spacing, pad=pad, spacing=spacing) 
+                            ? attachable_text3d_boundary(select(texts_, 0, i - 1),
+                                font=font,
+                                size=size,
+                                h=h,
+                                line_spacing=line_spacing,
+                                pad=pad,
+                                spacing=spacing)
                             : [0, 0, 0]
                         )
                     fwd(prevbounds.y)
-                        _attachable_text3d_one_line(texts_[i], font=font, size=size, h=h, pad=pad, spacing=spacing, direction=direction, language=language, script=script, anchor=align);
+                        _attachable_text3d_one_line(texts_[i],
+                            font=font,
+                            size=size,
+                            h=h,
+                            pad=pad,
+                            spacing=spacing,
+                            direction=direction,
+                            language=language,
+                            script=script,
+                            anchor=align);
 
             if (debug_bounding)
                 translate([-1 * (boundary.x/2), -1 * (boundary.y/2), -1 * (boundary.z/2)])
@@ -259,9 +274,17 @@ module _attachable_text3d_one_line(text, font=AT3D_DEFAULT_FONT, size=AT3D_DEFAU
     anchors = attachable_text3d_anchors_from_boundary(boundary);
 
     attachable(anchor, spin, orient, size=boundary, anchors=anchors) {
-        translate( [-1 * (boundary.x/2), -1 * (boundary.y / 2), -1 * (boundary.z / 2) ] )
+        translate( [-1 * (boundary.x/2), -1 * (boundary.y / 2), 0 ] )
             union() {
-                text3d(text, font=font, size=size, h=h, spacing=spacing, direction=direction, language=language, script=script);
+                text3d(text,
+                    font=font,
+                    size=size,
+                    h=h,
+                    spacing=spacing,
+                    direction=direction,
+                    language=language,
+                    script=script);
+
                 if (debug_bounding)
                      _bounds_debugging(boundary);
             }
